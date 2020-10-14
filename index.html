@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Turn Key M</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="styles.css" />
+	<link rel="manifest" href="manifest.json" />
+
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <script src="bulb.js"></script>
+
+    <style>
+    input[type="range"]::-moz-range-progress 
+    {
+      height:10px;
+      border-radius:8px;
+      background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        color-stop(1, #A90F00),
+        color-stop(1, #E2E2E2)
+      );
+      background-color: #43e5f7; 
+      outline:none;
+      border:0;
+    }
+
+    input[type="range"]::-moz-range-track 
+    {  
+      height:10px;
+      border-radius:8px;
+      background-color: #D3D3D3;
+      background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        color-stop(1, #D3D3D3),
+        color-stop(1, #D3D3D3)
+      );
+      outline:none;
+      border:0;
+      
+    }
+    .switch {
+	  position: relative;
+	  display: inline-block;
+	  width: 60%;
+	  height: 34px;
+	}
+
+	.switch input {display:none;}
+
+	.slider {
+	  position: absolute;
+	  cursor: pointer;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  bottom: 0;
+	  background-color: #d16d08;
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+
+	.slider:before {
+	  position: absolute;
+	  content: "";
+	  height: 26px;
+	  width: 26px;
+	  left: 4px;
+	  bottom: 4px;
+	  background-color: white;
+	  -webkit-transition: .4s;
+	  transition: .4s;
+	}
+
+	input:checked + .slider {
+	  background-color: #828c11;
+	}
+
+	input:focus + .slider {
+	  box-shadow: 0 0 1px #828c11;
+	}
+
+	input:checked + .slider:before {
+	  -webkit-transform: translateX(70px);
+	  -ms-transform: translateX(70px);
+	  transform: translateX(70px);
+	}
+
+	/*------ ADDED CSS ---------*/
+	.on
+	{
+	  display: none;
+	}
+
+	.on, .off
+	{
+	  color: white;
+	  position: absolute;
+	  transform: translate(-50%,-50%);
+	  top: 50%;
+	  left: 50%;
+	  font-size: 18px;
+	  font-family: Verdana, sans-serif;
+	}
+
+	input:checked+ .slider .on
+	{display: block;}
+
+	input:checked + .slider .off
+	{display: none;}
+
+	/*--------- END --------*/
+
+	/* Rounded sliders */
+	.slider.round {
+	  border-radius: 34px;
+	}
+
+	.slider.round:before {
+	  border-radius: 50%;}
+
+
+	</style>
+</head>
+
+<body>
+<!-- Always shows a header, even in smaller screens. -->
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	  <header class="mdl-layout__header">
+	    <div class="mdl-layout__header-row">
+	      <!-- Title -->
+	      <span class="mdl-layout-title">Turn Key M</span>
+	      <!-- Add spacer, to align navigation to the right -->
+	      <div class="mdl-layout-spacer"></div>
+	      <!-- Navigation. We hide it in small screens. -->
+	      <nav class="mdl-navigation mdl-layout--large-screen-only">
+	        <a class="mdl-navigation__link" href="index.html">Home</a>
+	        <!-- <a class="mdl-navigation__link" href="">Link</a>
+	        <a class="mdl-navigation__link" href="">Link</a>
+	        <a class="mdl-navigation__link" href="">Link</a> -->
+	      </nav>
+	    </div>
+	  </header>
+	  <div class="mdl-layout__drawer">
+	    <span class="mdl-layout-title">Turn Key M</span>
+	    <nav class="mdl-navigation">
+	      <a class="mdl-navigation__link" href="index.html">Home</a>
+	      <!-- <a class="mdl-navigation__link" href="">Link</a>
+	      <a class="mdl-navigation__link" href="">Link</a>
+	      <a class="mdl-navigation__link" href="">Link</a> -->
+	    </nav>
+	  </div>
+	  <main class="mdl-layout__content">
+	    <div class="page-content">
+
+
+    <div class="app-layout mdl-layout mdl-js-layout">
+
+        <main class="mdl-layout__content">
+
+            <!-- <h3 style="text-align: center;">Turn Key M</h3> -->
+<br>
+			<label for="switch1" class="mdl-switch mdl-js-switch mdl-js-ripple-effect" >
+			  <input type="checkbox" id="switch1" class="mdl-switch__input" oninput="ConfigSwitchLogic()">
+			  <span class="mdl-switch__label" style="font-size: 18px">Configure</span>
+			</label>
+            <br>
+            <button onclick="connect()" class="connect-button mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                <i class="material-icons">bluetooth</i> Connect
+            </button>
+
+
+            <div class="power-button hidden">
+                <button onclick="togglePower()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--raised mdl-js-ripple-effect" style="background:#f56e6e">
+                    <!-- <i class="material-icons">lightbulb_outline</i> -->
+                    !
+                </button>
+                <label id="EmergencyStopLabel" style="font-size: 17px; font-weight: 1px"></label>
+            </div>
+            <div class="mic-button hidden">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <label class="switch">
+                	<input type="checkbox" id="togBtn" value="togBtn6">
+                	<div class="slider round">
+                		<span class="on">CW</span>
+                		<span class="off">ACW</span>
+                	</div>
+                </label>
+                <br><br>
+                  <span class="unit" style="font-size: 20px">Speed (steps/s)</span>
+                  <br>
+                  <input id="speedRange" type="range" min="0" max="850" step="50" value="400" style="width: 90%">
+                  <br>
+                  <!-- <span class="unit"> steps/s</span> -->
+                  <input class="mdl-textfield__input" id="speedInput" name="price" value="400">
+                  <div class="label_hide hidden">
+                  <label id="speed" style="padding-left:20px;"></label>
+                  </div>
+                <script type="text/javascript">
+                      document.getElementById('speed').innerHTML = "400"
+                  $('#speedRange').on('input',function () {
+                      var newVal_slide = $(this).val();
+                      $("#speedInput").val(newVal_slide);
+                      document.getElementById('speed').innerHTML = newVal_slide
+                      });
+                  $('#speedInput').on('input', function(){
+                      //console.log($(this).val())
+                      var newVal = $(this).val();
+                      $('#speedRange').val(newVal)
+                      document.getElementById('speed').innerHTML = newVal
+                      });
+                </script>
+
+                <br><br>
+                  <span class="unit" style="font-size: 20px">Duration(s)</span>
+                  <br>
+                <input id="durRange" type="range" min="0" max="300" step="1" value="2" style="width: 90%">
+                  <br>
+                  <input  class="mdl-textfield__input" id="durInput" name="price" value="2" >
+                  <!-- <span class="unit"> s</span> -->
+                  <div class="label_hide hidden">
+                  <label id="dur_s" style="padding-left:20px;"></label>
+                  </div>
+                <script type="text/javascript">
+                      document.getElementById('dur_s').innerHTML = "2"
+                  $('#durRange').on('input',function () {
+                      var newVal_slide = $(this).val();
+                      $("#durInput").val(newVal_slide);
+                      document.getElementById('dur_s').innerHTML = newVal_slide
+                      });
+                  $('#durInput').on('input', function(){
+                      //console.log($(this).val())
+                      var newVal = $(this).val();
+                      $('#durRange').val(newVal)
+                      document.getElementById('dur_s').innerHTML = newVal
+                      });
+                </script>
+
+                
+            </div>
+
+            <br>
+            <div class="color-buttons hidden">
+                <button onclick="run()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--raised mdl-js-ripple-effect" style="background:#a0ffa0; font-size: 18px">
+                    Run
+                </button>
+            </div>
+            <br>
+            <br>
+            <br>
+            <div class="color-buttons2 hidden" style="justify-content: space-between;">
+                <button onclick="runcw()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--raised mdl-js-ripple-effect" style="background:#828c11; font-size: 18px;">
+                    CW
+                </button>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <button onclick="runacw()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--raised mdl-js-ripple-effect" style="background:#d16d08; font-size: 18px;">
+                    ACW
+                </button>
+            </div>
+        </main>
+    </div>
+
+	    </div>
+	  </main>
+	</div>
+
+    <script src="bulb.js"></script>
+</body>
+
+</html>
