@@ -15,38 +15,7 @@
     <script src="bulb.js"></script>
 
     <style>
-    input[type="range"]::-moz-range-progress 
-    {
-      height:10px;
-      border-radius:8px;
-      background-image: -webkit-gradient(
-        linear,
-        left top,
-        right top,
-        color-stop(1, #A90F00),
-        color-stop(1, #E2E2E2)
-      );
-      background-color: #43e5f7; 
-      outline:none;
-      border:0;
-    }
 
-    input[type="range"]::-moz-range-track 
-    {  
-      height:10px;
-      border-radius:8px;
-      background-color: #D3D3D3;
-      background-image: -webkit-gradient(
-        linear,
-        left top,
-        right top,
-        color-stop(1, #D3D3D3),
-        color-stop(1, #D3D3D3)
-      );
-      outline:none;
-      border:0;
-      
-    }
     .switch {
 	  position: relative;
 	  display: inline-block;
@@ -197,10 +166,9 @@
                 <br><br>
                   <span class="unit" style="font-size: 20px">Speed (steps/s)</span>
                   <br>
-                  <input id="speedRange" type="range" min="0" max="850" step="50" value="400" style="width: 90%">
-                  <br>
+                  <input id="speedRange" type="range" min="0" max="850" step="50" value="400" style="width: 100%" class="mdl-slider mdl-js-slider">
                   <!-- <span class="unit"> steps/s</span> -->
-                  <input class="mdl-textfield__input" id="speedInput" name="price" value="400">
+                  <input class="mdl-textfield__input" id="speedInput" name="price" value="400" type="number">
                   <div class="label_hide hidden">
                   <label id="speed" style="padding-left:20px;"></label>
                   </div>
@@ -214,7 +182,7 @@
                   $('#speedInput').on('input', function(){
                       //console.log($(this).val())
                       var newVal = $(this).val();
-                      $('#speedRange').val(newVal)
+                      $('#speedRange').get(0).MaterialSlider.change(newVal);
                       document.getElementById('speed').innerHTML = newVal
                       });
                 </script>
@@ -222,9 +190,8 @@
                 <br><br>
                   <span class="unit" style="font-size: 20px">Duration(s)</span>
                   <br>
-                <input id="durRange" type="range" min="0" max="300" step="1" value="2" style="width: 90%">
-                  <br>
-                  <input  class="mdl-textfield__input" id="durInput" name="price" value="2" >
+                <input id="durRange" type="range" min="0" max="300" step="1" value="2" style="width: 100%" class="mdl-slider mdl-js-slider">
+                  <input  class="mdl-textfield__input" id="durInput" name="price" value="2" type="number">
                   <!-- <span class="unit"> s</span> -->
                   <div class="label_hide hidden">
                   <label id="dur_s" style="padding-left:20px;"></label>
@@ -238,8 +205,14 @@
                       });
                   $('#durInput').on('input', function(){
                       //console.log($(this).val())
+
                       var newVal = $(this).val();
-                      $('#durRange').val(newVal)
+
+                      console.log(newVal );
+
+                       $('#durRange').get(0).MaterialSlider.change(newVal);
+
+
                       document.getElementById('dur_s').innerHTML = newVal
                       });
                 </script>
